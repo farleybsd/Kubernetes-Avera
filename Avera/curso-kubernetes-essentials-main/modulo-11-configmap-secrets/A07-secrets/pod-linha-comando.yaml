@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: echo-var
+spec:
+  containers:
+    - name: echo
+      image: busybox
+      args:
+        - /bin/sh
+        - -c
+        - while true; do echo "Valor de COTACAO_EUR é $$COTACAO_EUR"; sleep 5; done
+      env:
+        - name: COTACAO_EUR
+          valueFrom:
+            secretKeyRef:
+              name: cotacoes-var-secret
+              key: COTACAO_EUR

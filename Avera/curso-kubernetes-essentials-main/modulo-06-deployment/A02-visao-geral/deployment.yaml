@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-demo
+  annotations:
+    kubernetes.io/change-cause: "Atualizacao do numero de replicas"
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      run: pod-update-demo
+  template:
+    metadata:
+      labels:
+        run: pod-update-demo
+    spec:
+      containers:
+      - image: averaacademy/kubernetes:deployment-demo
+        name: pod-update-demo
+        env:
+        - name: Shutdown
+          value: "false"

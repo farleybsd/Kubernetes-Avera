@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: envvars
+data:
+  VAR1: valor1
+  VAR2: valor2

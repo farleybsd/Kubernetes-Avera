@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: job-demo
+spec:
+  completions: 1
+  backoffLimit: 3
+  ttlSecondsAfterFinished: 10
+  parallelism: 1
+  # activeDeadlineSeconds: 70
+  # suspend: false
+  
+  template:
+    metadata:
+      name: job-demo
+    spec:
+      containers:
+      - name: job-demo
+        image: averaacademy/kubernetes:pod-lifecycle-failed
+      restartPolicy: OnFailure

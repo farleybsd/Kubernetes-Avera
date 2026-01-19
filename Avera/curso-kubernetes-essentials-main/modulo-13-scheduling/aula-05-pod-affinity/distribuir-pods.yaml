@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pod-antiaffinity-demo
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: pod-antiaffinity-demo
+  template:
+    metadata:
+      labels:
+        app: pod-antiaffinity-demo
+    spec:
+      containers:
+      - image: nginx
+        name: nginx
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - pod-antiaffinity-demo
+              topologyKey: "kubernetes.io/hostname"

@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: env-var
+  name: environment-demo
+spec:
+  containers:
+  - image: averaacademy/kubernetes:environment-variables
+    name: env-var
+    env:
+    - name: MY_NAME
+      value: "Avera"
+    - name: Logging__LogLevel__Default
+      value:  "Debug"
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}

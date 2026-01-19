@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: load-test
+  annotations:
+    nginx.ingress.kubernetes.io/app-root: /swagger
+spec:
+  tls:
+  - hosts:
+    - load-test.averaacademy
+    secretName: loadtest-secret
+  rules:
+  - host: load-test.averaacademy
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: load-test-service
+            port:
+              number: 80

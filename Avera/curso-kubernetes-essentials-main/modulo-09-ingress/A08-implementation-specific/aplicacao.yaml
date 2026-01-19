@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubernetes-site
+  labels:
+    app: kubernetes-site
+spec:
+  progressDeadlineSeconds: 20
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kubernetes-site
+  template:
+    metadata:
+      labels:
+        app: kubernetes-site
+    spec:
+      containers:
+      - name: kubernetes-site
+        image: averaacademy/kubernetes-site:latest
+        ports:
+        - containerPort: 80
+          name: kubernetes-site
+      - name: load-test
+        image: averaacademy/kubernetes:load-test
+        ports:
+        - containerPort: 8080
+          name: load-test
+        env:
+        - name: ASPNETCORE_URLS
+          value: http://+:8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kubernetes-site-service
+  labels:
+    app: kubernetes-site-service
+spec:
+  selector:
+    app: kubernetes-site
+  ports:
+    - name: kubernetes-site
+      protocol: TCP
+      port: 80
+      targetPort: kubernetes-site
+    - name: load-test
+      protocol: TCP
+      port: 4200
+      targetPort: load-test

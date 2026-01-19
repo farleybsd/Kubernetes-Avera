@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cotacoes-var
+data:
+  COTACAO_EUR: "0.85"
+  COTACAO_JPY: "110.31"
+  COTACAO_BRL: "5.25"

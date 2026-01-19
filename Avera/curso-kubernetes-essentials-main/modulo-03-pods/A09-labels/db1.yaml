@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: catalogo-database
+  labels:
+    run: postgres
+    time: ecommerce
+    environment: dev
+    tier: database
+spec:
+  containers:
+  - name: postgres
+    image: postgres:latest
+    env:
+    - name: POSTGRES_USER
+      value: user
+    - name: POSTGRES_PASSWORD
+      value: password
+    ports:
+    - containerPort: 5432

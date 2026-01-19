@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: pod-lifecycle-hooks
+  name: pod-lifecycle-hooks
+spec:
+  containers:
+  - image: averaacademy/kubernetes:pod-lifecycle-hooks
+    name: pod-lifecycle-hooks
+    lifecycle:
+      preStop:
+        httpGet:
+          path: /shutdown
+          port: 80
+      postStart:
+        exec:
+          command: ["/bin/sh", "-c", "echo The app is running! && sleep 10"]
+  dnsPolicy: ClusterFirst 
+  restartPolicy: Always
+status: {}

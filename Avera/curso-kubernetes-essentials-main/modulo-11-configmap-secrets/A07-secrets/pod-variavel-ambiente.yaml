@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: cm-envvar
+spec:
+  containers:
+  - name: envvar
+    image: averaacademy/kubernetes:environment-variables
+    env:
+    - name: VARIABLE1
+      valueFrom:
+        secretKeyRef:
+          name: envvars-secret
+          key: VAR1
+    envFrom:
+    - secretRef:
+        name: envvars-secret

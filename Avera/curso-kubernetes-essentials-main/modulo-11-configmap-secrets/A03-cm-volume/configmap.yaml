@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cotacoes
+data:
+  cotacoes.json: |
+    {
+      "Moedas": {
+        "EUR": 0.95,
+        "JPY": 120.31,
+        "BRL": 7
+      }
+    }

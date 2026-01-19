@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: load-test
+  labels:
+    app: load-test
+spec:
+  progressDeadlineSeconds: 20
+  replicas: 1
+  selector:
+    matchLabels:
+      app: load-test
+  template:
+    metadata:
+      labels:
+        app: load-test
+    spec:
+      containers:
+      - name: load-test
+        image: averaacademy/kubernetes:load-test
+        ports:
+        - containerPort: 80
+          name: load-test
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: load-test-service
+  labels:
+    app: load-test-service
+spec:
+  selector:
+    app: load-test
+  ports:
+    - name: load-test
+      protocol: TCP
+      port: 80
+      targetPort: load-test

@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod
+spec:
+  containers:
+  - name: nginx
+    image: nginx:latest
+    ports:
+    - containerPort: 80
+  initContainers:
+  - name: check-postgres
+    image: busybox:1.28
+    command: ['sh', '-c', 'sleep 5; until nc -z 10.244.1.14 5432; do echo Aguardando pelo postgres; sleep 2; done;']

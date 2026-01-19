@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-affinity-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: node-affinity-demo
+  template:
+    metadata:
+      labels:
+        run: node-affinity-demo
+    spec:
+      containers:
+      - image: nginx
+        name: nginx
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: diskType
+                operator: In
+                values:
+                - SSD
+              - key: cpuType
+                operator: In
+                values:
+                - arm

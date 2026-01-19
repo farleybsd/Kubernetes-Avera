@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pod-affinity-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: pod-affinity-demo
+  template:
+    metadata:
+      labels:
+        run: pod-affinity-demo
+    spec:
+      containers:
+      - image: nginx
+        name: nginx
+      affinity:
+        podAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - postresql
+            topologyKey: "kubernetes.io/hostname"

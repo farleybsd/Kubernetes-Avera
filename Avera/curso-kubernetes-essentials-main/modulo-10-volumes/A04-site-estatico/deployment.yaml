@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: site-estatico
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: site-estatico
+  template:
+    metadata:
+      labels:
+        app: site-estatico
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:alpine
+        volumeMounts:
+        - name: html
+          mountPath: /usr/share/nginx/html
+          readOnly: true
+      initContainers:
+      - image: alpine/git
+        name: git
+        command:
+        - git
+        - clone
+        - https://github.com/brunobritodev/kubernetes-site.git
+        - /kubernetes-site
+        volumeMounts:
+        - name: html
+          mountPath: /kubernetes-site
+      volumes:
+      - name: html
+        emptyDir: {}

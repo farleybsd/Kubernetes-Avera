@@ -1,0 +1,25 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: hello
+spec:
+  schedule: "* * * * *"
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 1
+  concurrencyPolicy: Replace # Allow, Replace, Forbid
+  jobTemplate:
+    spec:
+      completions: 3
+      backoffLimit: 3
+      ttlSecondsAfterFinished: 10
+      parallelism: 1
+      # activeDeadlineSeconds: 70
+      # suspend: false
+      template:
+        metadata:
+          name: job-demo
+        spec:
+          containers:
+          - name: job-demo
+            image: averaacademy/kubernetes:pod-lifecycle-succeeded
+          restartPolicy: OnFailure
