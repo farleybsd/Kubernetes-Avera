@@ -1,0 +1,4 @@
+# Iniciando o miniKube 
+minikube start -n 2 Avera
+# Verificando os Nodes Criados
+kubectl get nodes

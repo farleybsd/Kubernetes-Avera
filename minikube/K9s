@@ -1,0 +1,13 @@
+# Gerenciamento do miniKube
+https://k9scli.io/
+
+# Instalacao 
+ # Via LinuxBrew
+ brew install derailed/k9s/k9s
+
+ # Verificando a instalacao e a  versao 
+  k9s version
+  k9s
+
+  # Mostrando Recursos
+  aperte 0 para entrar no name space Default

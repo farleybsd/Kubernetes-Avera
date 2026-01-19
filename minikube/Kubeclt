@@ -1,0 +1,13 @@
+sudo snap install kubectl --classic
+kubectl version --client
+kubectl get nodes
+
+# Criando um Alias no Linux
+nano /home/farleyrufino/.bashrc
+# some more ls aliases
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+alias k = Kubectl
+# Testando 
+k get nodes
